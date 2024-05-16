@@ -1,0 +1,17 @@
+{
+  "name": "conferencing-app",
+  "version": "1.0.0",
+  "description": "video conferencing application",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "author": "smgsankar",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2",
+    "nodemon": "^3.1.0",
+    "socket.io": "^4.7.5"
+  }
+}
