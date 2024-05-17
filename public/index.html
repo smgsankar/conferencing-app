@@ -4,14 +4,63 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="styles.css" />
-    <script src="script.js" defer></script>
-    <title>Maatran</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+    />
+    <title>Conference</title>
   </head>
   <body>
-    <button id="test">Test</button>
+    <header>
+      <h1>Something</h1>
+    </header>
+    <main>
+      <section id="user-tiles">
+        <div class="user-tile"></div>
+        <div class="user-tile"></div>
+        <div class="user-tile"></div>
+        <div class="user-tile"></div>
+        <div class="user-tile"></div>
+      </section>
+      <aside>
+        <section id="participants">
+          <div class="side-header">
+            <h2>Participants</h2>
+            <button class="close-aside">
+              <span class="material-symbols-outlined"> close </span>
+            </button>
+          </div>
+          <ul id="participants-list"></ul>
+        </section>
+        <section id="chat">
+          <div class="side-header">
+            <h2>Chat</h2>
+            <button class="close-aside">
+              <span class="material-symbols-outlined"> close </span>
+            </button>
+          </div>
+          <ul id="chat-content"></ul>
+          <form id="chat-form">
+            <input
+              type="text"
+              id="chat-input"
+              placeholder="Type something..."
+            />
+            <button id="chat-submit" type="submit">Send</button>
+          </form>
+        </section>
+      </aside>
+    </main>
+    <footer>Footer</footer>
+    <!-- <button id="test">Test</button>
     <button id="play-video">Video</button>
     <button id="play-audio">Audio</button>
+    <button id="connect">Connect</button>
+    <button id="disconnect" disabled="true">Disconnect</button>
+    <button id="alert">Alert</button>
     <video id="video" height="500" controls></video>
-    <audio id="audio" controls></audio>
+    <audio id="audio" controls></audio> -->
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="script.js" defer></script>
   </body>
 </html>

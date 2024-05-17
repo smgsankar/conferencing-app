@@ -1,24 +1,17 @@
-const video = document.getElementById("video");
-const audio = document.getElementById("audio");
+let socket;
 
-document.getElementById("test").addEventListener("click", function () {
+document.getElementById("user-tiles").addEventListener("click", function () {
   navigator.mediaDevices
     .getDisplayMedia({ audio: { noiseSuppression: false } })
     .then((stream) => {
-      video.srcObject = stream;
-      audio.srcObject = stream;
+      console.log('==> ', stream.getAudioTracks());
     })
     .catch((err) => {
       console.log(err);
     });
 });
 
-document.getElementById("play-video").addEventListener("click", function () {
-  audio.pause();
-  video.play();
-});
-
-document.getElementById("play-audio").addEventListener("click", function () {
-  video.pause();
-  audio.play();
-});
+function playNotification() {
+  const notificationAlert = new Audio("/assets/notification.mp3");
+  notificationAlert.play();
+}
