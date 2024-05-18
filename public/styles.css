@@ -83,8 +83,8 @@ main {
   max-width: 500px;
 }
 
-main > aside {
-  display: none;
+.sidebar {
+  display: flex;
   flex-direction: column;
   width: max(300px, 20%);
   gap: 12px;
@@ -104,8 +104,117 @@ main > aside {
   cursor: pointer;
 }
 
+.chat {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  height: 100%;
+}
+
+#chat-content-container {
+  flex: 1;
+}
+
+.no-data {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  color: var(--accent-grey);
+}
+
+#chat-content {
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+#chat-input-wrapper {
+  display: flex;
+  gap: 8px;
+  background-color: var(--dark-tertiary-bg);
+  color: var(--accent-white);
+  padding: 12px 18px;
+  border-radius: 24px;
+}
+
+#chat-input {
+  flex: 1;
+  background-color: inherit;
+  border: none;
+  caret-color: var(--accent-white);
+  color: var(--accent-white);
+}
+
+#chat-input:focus {
+  outline: none;
+}
+
+#chat-submit {
+  cursor: pointer;
+  color: var(--accent-white);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.participants {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  height: 100%;
+}
+
+#participants-list {
+  flex: 1;
+}
+
 footer {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   padding: 24px 32px;
+  gap: 24px;
+}
+
+.meet-action {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--accent-white);
+  background-color: var(--dark-secondary-bg);
+  border-radius: 50%;
+  height: 54px;
+  width: 54px;
+  cursor: pointer;
+}
+
+.meet-action:hover {
+  background-color: var(--dark-tertiary-bg);
+}
+
+.meet-action[data-active="true"] {
+  background-color: var(--primary-theme-color);
+  color: var(--accent-black);
+}
+
+#cancel-presentation-btn {
+  background-color: var(--primary-theme-color);
+  color: var(--accent-black);
+}
+
+.toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background-color: var(--dark-tertiary-bg);
+  color: var(--accent-red);
+  padding: 12px 24px;
+  border-radius: 12px;
+  display: block;
+}
+
+.hide {
+  display: none;
 }

@@ -22,44 +22,60 @@
         <div class="user-tile"></div>
         <div class="user-tile"></div>
       </section>
-      <aside>
-        <section id="participants">
+      <aside class="sidebar hide">
+        <section class="participants hide">
           <div class="side-header">
-            <h2>Participants</h2>
-            <button class="close-aside">
+            <h3>Participants</h3>
+            <button type="button" class="close-aside">
               <span class="material-symbols-outlined"> close </span>
             </button>
           </div>
-          <ul id="participants-list"></ul>
+          <div id="participants-list">
+            <div class="no-data">No participants yet...</div>
+          </div>
         </section>
-        <section id="chat">
+        <section class="chat hide">
           <div class="side-header">
-            <h2>Chat</h2>
-            <button class="close-aside">
+            <h3>Chat</h3>
+            <button type="button" class="close-aside">
               <span class="material-symbols-outlined"> close </span>
             </button>
           </div>
-          <ul id="chat-content"></ul>
-          <form id="chat-form">
+          <div id="chat-content-container">
+            <div class="no-data">No messages yet...</div>
+          </div>
+          <div id="chat-input-wrapper">
             <input
               type="text"
               id="chat-input"
               placeholder="Type something..."
             />
-            <button id="chat-submit" type="submit">Send</button>
-          </form>
+            <button id="chat-submit" type="button">
+              <span class="material-symbols-outlined"> send </span>
+            </button>
+          </div>
         </section>
       </aside>
     </main>
-    <footer>Footer</footer>
-    <!-- <button id="test">Test</button>
-    <button id="play-video">Video</button>
-    <button id="play-audio">Audio</button>
-    <button id="connect">Connect</button>
-    <button id="disconnect" disabled="true">Disconnect</button>
-    <button id="alert">Alert</button>
-    <video id="video" height="500" controls></video>
-    <audio id="audio" controls></audio> -->
+    <footer>
+      <button type="button" class="meet-action" id="present-btn">
+        <span class="material-symbols-outlined"> present_to_all </span>
+      </button>
+      <button
+        type="button"
+        class="meet-action hide"
+        id="cancel-presentation-btn"
+      >
+        <span class="material-symbols-outlined"> cancel_presentation </span>
+      </button>
+      <button type="button" class="meet-action" id="participants-btn">
+        <span class="material-symbols-outlined"> people </span>
+      </button>
+      <button type="button" class="meet-action" id="chat-btn">
+        <span class="material-symbols-outlined"> chat_bubble </span>
+      </button>
+    </footer>
+    <div class="toast hide"></div>
     <script src="/socket.io/socket.io.js"></script>
     <script src="script.js" defer></script>
   </body>
