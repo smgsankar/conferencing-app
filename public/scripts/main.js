@@ -7,12 +7,14 @@ const cancelPresentationBtn = document.getElementById(
   "cancel-presentation-btn"
 );
 
+const presentation = document.getElementById("presentation");
+
 const chatBtn = document.getElementById("chat-btn");
 const participantsBtn = document.getElementById("participants-btn");
 
 const sidebar = document.querySelector(".sidebar");
-const chat = document.querySelector(".chat");
-const participants = document.querySelector(".participants");
+const chat = document.getElementById("chat");
+const participants = document.getElementById("participants");
 
 function stopStream() {
   if (!stream) return;
@@ -21,7 +23,6 @@ function stopStream() {
 
 function stopPresentation() {
   stopStream();
-  emitStopPresentation();
   presentBtn.classList.remove("hide");
   cancelPresentationBtn.classList.add("hide");
 }
@@ -38,7 +39,6 @@ function present() {
       if (audioTracks.length == 0) {
         toastError(NO_AUDIO_ERROR);
       }
-      emitStartPresentation(str);
       presentBtn.classList.add("hide");
       cancelPresentationBtn.classList.remove("hide");
       str.getTracks()[0].onended = stopPresentation;
@@ -49,17 +49,9 @@ function present() {
     });
 }
 
-function isComponentVisible(component) {
-  return !component.classList.contains("hide");
-}
-
-function hideComponent(component) {
+function deactivateComponent(component) {
+  hideComponent(component);
   component.setAttribute("data-active", "false");
-  component.classList.add("hide");
-}
-
-function showComponent(component) {
-  component.classList.remove("hide");
 }
 
 function toggleChat() {
@@ -116,3 +108,5 @@ cancelPresentationBtn.addEventListener("click", stopPresentation);
 
 chatBtn.addEventListener("click", toggleChat);
 participantsBtn.addEventListener("click", toggleParticipants);
+
+window.addEventListener("beforeunload", stopStream);

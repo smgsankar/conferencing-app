@@ -16,24 +16,26 @@ app.get("/", (_, res) => {
 let participants = [];
 
 io.on("connection", (socket) => {
-  console.log("a user connected", socket.id);
   socket.broadcast.emit("user-connected", socket.id);
   participants.push(socket.id);
 
   socket.emit("user-connected", participants);
 
   socket.on("disconnect", () => {
-    console.log("user disconnected", socket.id);
     socket.broadcast.emit("user-disconnected", socket.id);
     participants = participants.filter((id) => id !== socket.id);
   });
 
-  socket.on("message", (msg) => {
-    console.log("message: " + msg);
-  });
-
-  socket.on("start-presentation", (data) => {
-    console.log("start-presentation: " + data.stream);
+  socket.on("message", (message) => {
+    const messageObject = {
+      content: message,
+      time: new Date().toISOString(),
+    };
+    socket.emit("message-received", messageObject);
+    socket.broadcast.emit("message", {
+      ...messageObject,
+      sender: socket.id,
+    });
   });
 });
 

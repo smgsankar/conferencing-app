@@ -4,30 +4,85 @@ let participantsArray = [];
 const noParticipants = document.getElementById("no-participants");
 const participantsList = document.getElementById("participants-list");
 
+const noMessages = document.getElementById("no-messages");
+const chatContent = document.getElementById("chat-content");
+
 form.onsubmit = function (event) {
   event.preventDefault();
   const message = form.elements["chat-input"].value;
   if (message) {
-    emitMessage("message", message);
+    emitMessage(message);
     form.querySelector("input").value = "";
   }
 };
 
-function addMessage(message) {
-  const chat = document.querySelector(".chat");
+function hideNoMessagesIfShown() {
+  if (!noMessages.classList.contains("hide")) {
+    noMessages.classList.add("hide");
+  }
+}
+
+function createMessageElement(messageObject) {
+  const { content, sender, time } = messageObject;
   const messageElement = document.createElement("div");
   messageElement.classList.add("message");
-  messageElement.textContent = message;
-  chat.appendChild(messageElement);
+
+  const participantIcon = getParticipantIcon("32px");
+  messageElement.appendChild(participantIcon);
+
+  const messageBody = document.createElement("div");
+  messageBody.className = "message-body";
+
+  const messageInfo = document.createElement("div");
+  messageInfo.className = "message-info";
+
+  const senderName = document.createElement("span");
+  senderName.className = "sender-name";
+  senderName.textContent = trimDisplayName(sender ?? "You");
+  messageInfo.appendChild(senderName);
+
+  const msgTime = document.createElement("span");
+  msgTime.className = "message-time";
+
+  const secondsLeft = 60 - new Date().getSeconds();
+  setTimeout(() => {
+    msgTime.textContent = getFormattedTimestamp(time);
+  }, secondsLeft * 1000);
+
+  msgTime.textContent = "now";
+  messageInfo.appendChild(msgTime);
+
+  messageBody.appendChild(messageInfo);
+
+  const messageContent = document.createElement("div");
+  messageContent.className = "message-content";
+  messageContent.textContent = content;
+
+  messageBody.appendChild(messageContent);
+
+  messageElement.appendChild(messageBody);
+
+  return messageElement;
+}
+
+function addOwnMessage(messageObject) {
+  const messageElement = createMessageElement(messageObject);
+  chatContent.appendChild(messageElement);
+  hideNoMessagesIfShown();
+}
+
+function addMessage(messageObject) {
+  playNotification();
+  const messageElement = createMessageElement(messageObject);
+  chatContent.appendChild(messageElement);
+  hideNoMessagesIfShown();
 }
 
 function createParticipantTile(displayName) {
   const participantTile = document.createElement("div");
   participantTile.classList.add("participant");
 
-  const participantIcon = document.createElement("span");
-  participantIcon.className = "material-symbols-outlined";
-  participantIcon.textContent = "account_circle";
+  const participantIcon = getParticipantIcon();
 
   const participantName = document.createElement("span");
   participantName.textContent = displayName;
@@ -39,7 +94,10 @@ function createParticipantTile(displayName) {
 }
 
 function getDisplayNameFromUserId(userId) {
-  return userId === socket.id ? `${userId} (you)` : userId;
+  const trimmedDisplayName = trimDisplayName(userId);
+  return userId === socket.id
+    ? `${trimmedDisplayName} (you)`
+    : trimmedDisplayName;
 }
 
 function createParticipantElement(userId) {

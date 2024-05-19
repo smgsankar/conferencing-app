@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="styles.css" />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
     />
     <title>Conference</title>
   </head>
@@ -15,35 +15,29 @@
       <h1>Something</h1>
     </header>
     <main>
-      <section id="user-tiles">
-        <div class="user-tile"></div>
-        <div class="user-tile"></div>
-        <div class="user-tile"></div>
-        <div class="user-tile"></div>
-        <div class="user-tile"></div>
-      </section>
+      <section id="presentation"></section>
       <aside class="sidebar hide">
-        <section class="participants hide">
+        <section id="participants" class="sidebar-content hide">
           <div class="side-header">
             <h3>Participants</h3>
             <button type="button" class="close-aside">
               <span class="material-symbols-outlined"> close </span>
             </button>
           </div>
-          <div id="participants-list">
+          <div class="sidebar-list" id="participants-list">
             <div class="no-data" id="no-participants">
               No participants yet...
             </div>
           </div>
         </section>
-        <section class="chat hide">
+        <section id="chat" class="sidebar-content hide">
           <div class="side-header">
             <h3>Chat</h3>
             <button type="button" class="close-aside">
               <span class="material-symbols-outlined"> close </span>
             </button>
           </div>
-          <div id="chat-content-container">
+          <div class="sidebar-list" id="chat-content">
             <div class="no-data" id="no-messages">No messages yet...</div>
           </div>
           <form id="chat-form">
@@ -81,9 +75,10 @@
     </footer>
     <div class="toast hide"></div>
     <script src="/socket.io/socket.io.js"></script>
-    <script src="scripts/index.js" defer></script>
+    <script src="scripts/main.js" defer></script>
     <script src="scripts/sidebar.js" defer></script>
     <script src="scripts/utils.js" defer></script>
     <script src="scripts/socket.js" defer></script>
+    <script src="https://unpkg.com/audiomotion-analyzer/dist"></script>
   </body>
 </html>
