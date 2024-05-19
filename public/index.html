@@ -31,7 +31,9 @@
             </button>
           </div>
           <div id="participants-list">
-            <div class="no-data">No participants yet...</div>
+            <div class="no-data" id="no-participants">
+              No participants yet...
+            </div>
           </div>
         </section>
         <section class="chat hide">
@@ -42,18 +44,20 @@
             </button>
           </div>
           <div id="chat-content-container">
-            <div class="no-data">No messages yet...</div>
+            <div class="no-data" id="no-messages">No messages yet...</div>
           </div>
-          <div id="chat-input-wrapper">
+          <form id="chat-form">
             <input
               type="text"
               id="chat-input"
+              name="chat-input"
+              autocomplete="off"
               placeholder="Type something..."
             />
-            <button id="chat-submit" type="button">
+            <button id="chat-submit" type="submit">
               <span class="material-symbols-outlined"> send </span>
             </button>
-          </div>
+          </form>
         </section>
       </aside>
     </main>
@@ -77,6 +81,9 @@
     </footer>
     <div class="toast hide"></div>
     <script src="/socket.io/socket.io.js"></script>
-    <script src="script.js" defer></script>
+    <script src="scripts/index.js" defer></script>
+    <script src="scripts/sidebar.js" defer></script>
+    <script src="scripts/utils.js" defer></script>
+    <script src="scripts/socket.js" defer></script>
   </body>
 </html>
