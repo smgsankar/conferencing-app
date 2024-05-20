@@ -6,7 +6,7 @@ function emitMessage(message) {
 
 socket.on("user-connected", (userId) => {
   if (Array.isArray(userId)) {
-    userId.forEach((id) => addParticipant(id));
+    refreshParticipants(userId);
   } else {
     addParticipant(userId);
   }

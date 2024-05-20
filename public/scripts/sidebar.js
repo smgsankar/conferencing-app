@@ -118,6 +118,14 @@ function addParticipant(userId) {
   noParticipants.classList.add("hide");
 }
 
+function refreshParticipants(userIds) {
+  participantsList.innerHTML = "";
+  userIds.forEach((userId) => {
+    const participantElement = createParticipantElement(userId);
+    participantsList.appendChild(participantElement);
+  });
+}
+
 function removeParticipant(userId) {
   const participantElement = participantsList.querySelector(
     `.participant[data-user-id="${userId}"]`
