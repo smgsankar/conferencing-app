@@ -115,9 +115,7 @@ function addParticipant(userId) {
   const participantElement = createParticipantElement(userId);
   participantsList.appendChild(participantElement);
   participantsArray.push(userId);
-  if (participantsArray.length > 1) {
-    noParticipants.classList.add("hide");
-  }
+  noParticipants.classList.add("hide");
 }
 
 function removeParticipant(userId) {
