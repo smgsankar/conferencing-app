@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { SendIcon } from "../../../icons/SendIcon";
-import { useMeetRoomState } from "../../../store/hooks";
+import { useSidebarState } from "../../../hooks/useSidebarState";
+import { useCurrentUser } from "../../../hooks/useCurrentUser";
 import { SectionWithHeader } from "./SectionWithHeader";
 import { socket } from "../../../utils/socket";
 import { ParticipantIcon } from "../../../icons/ParticipantIcon";
@@ -8,10 +9,11 @@ import { getFormattedTimestamp, trimDisplayName } from "../../../utils/helpers";
 
 export const ChatSection = () => {
   const inputRef = useRef<HTMLInputElement>(null);
-  const { currentUser, messages } = useMeetRoomState();
+  const { messages } = useSidebarState();
+  const { currentUser } = useCurrentUser();
 
   const getMessageSenderName = (sender: string) =>
-    sender === currentUser ? "You" : trimDisplayName(sender);
+    sender === currentUser?.socketId ? "You" : trimDisplayName(sender);
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -23,8 +25,10 @@ export const ChatSection = () => {
   };
 
   useEffect(() => {
-    if (!messages.length) return;
-    if (messages[messages.length - 1].sender !== currentUser) return;
+    if (!messages.length || !currentUser) return;
+
+    if (messages[messages.length - 1].sender !== currentUser.socketId) return;
+
     const messagesContainer = document.querySelector(".sidebar-list")!;
     messagesContainer.scrollTop = messagesContainer.scrollHeight;
   }, [currentUser, messages]);

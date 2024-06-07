@@ -1,9 +1,9 @@
+import { useSidebarState } from "../../../hooks/useSidebarState";
 import { CloseIcon } from "../../../icons/CloseIcon";
-import { useMeetRoomState } from "../../../store/hooks";
 import { SidebarContentState } from "../../../utils/constants";
 
 export const CloseButton = () => {
-  const { setSidebarContent } = useMeetRoomState();
+  const { setSidebarContent } = useSidebarState();
 
   const onClose = () => setSidebarContent(SidebarContentState.None);
 

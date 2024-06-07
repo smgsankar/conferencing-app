@@ -1,50 +1,23 @@
-import { useRecoilState } from "recoil";
 import { CancelPresentationIcon } from "../../icons/CancelPresentationIcon";
 import { ChatBubbleIcon } from "../../icons/ChatBubbleIcon";
 import { PeopleIcon } from "../../icons/PeopleIcon";
 import { PresentToAllIcon } from "../../icons/PresetToAllIcon";
-import { meetRoomStateAtom } from "../../store/atoms";
 import { SidebarContentState } from "../../utils/constants";
-import { toastError } from "../../utils/helpers";
 import { EndCallIcon } from "../../icons/EndCallIcon";
 import { CopyButton } from "./CopyButton";
+import { useMeetRoomState } from "../../hooks/useMeetRoomState";
+import { useSidebarState } from "../../hooks/useSidebarState";
 
 export const Footer = () => {
-  const [meetRoomState, setMeetRoomState] = useRecoilState(meetRoomStateAtom);
-  const { sidebarContent, isPresenting } = meetRoomState;
+  const { displayStream, togglePresentation } = useMeetRoomState();
+  const { sidebarContent, setSidebarContent } = useSidebarState();
 
-  const toggleSidebarContent = (incomingState: SidebarContentState) =>
-    setMeetRoomState((prevState) => ({
-      ...prevState,
-      sidebarContent:
-        prevState.sidebarContent === incomingState
-          ? SidebarContentState.None
-          : incomingState,
-    }));
-
-  const stopPresentation = () => {
-    setMeetRoomState((prevState) => ({
-      ...prevState,
-      isPresenting: false,
-    }));
-  };
-
-  const onPresent = () => {
-    navigator.mediaDevices
-      .getDisplayMedia({
-        audio: { noiseSuppression: false },
-        video: { displaySurface: "browser" },
-      })
-      .then((str) => {
-        str.getTracks()[0].onended = stopPresentation;
-        setMeetRoomState((prevState) => ({
-          ...prevState,
-          isPresenting: true,
-        }));
-      })
-      .catch((err) => {
-        toastError(err.message);
-      });
+  const toggleSidebarContent = (incomingState: SidebarContentState) => {
+    setSidebarContent(
+      sidebarContent === incomingState
+        ? SidebarContentState.None
+        : incomingState
+    );
   };
 
   const onParticipantsClick = () => {
@@ -57,6 +30,7 @@ export const Footer = () => {
     toggleSidebarContent(SidebarContentState.Chat);
   };
 
+  const isPresenting = displayStream !== null;
   const isChatActive = sidebarContent === SidebarContentState.Chat;
   const isParticipantsActive =
     sidebarContent === SidebarContentState.Participants;
@@ -72,12 +46,16 @@ export const Footer = () => {
             data-active
             type="button"
             className="meet-action"
-            onClick={stopPresentation}
+            onClick={togglePresentation}
           >
             <CancelPresentationIcon />
           </button>
         ) : (
-          <button type="button" className="meet-action" onClick={onPresent}>
+          <button
+            type="button"
+            className="meet-action"
+            onClick={togglePresentation}
+          >
             <PresentToAllIcon />
           </button>
         )}

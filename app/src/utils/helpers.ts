@@ -1,3 +1,5 @@
+import { User } from "../store/state.types";
+
 export function toast(message: string) {
   const toast = document.querySelector(".toast")!;
   toast.innerHTML = message;
@@ -23,9 +25,9 @@ export function trimDisplayName(displayName: string, maxSize = 15) {
     : displayName;
 }
 
-export function getDisplayNameForUser(user: string, currentUser: string) {
-  const trimmedDisplayName = trimDisplayName(user);
-  return user === currentUser
+export function getDisplayNameForUser(user: User, currentUser: User | null) {
+  const trimmedDisplayName = trimDisplayName(user.name);
+  return user.socketId === currentUser?.socketId
     ? `${trimmedDisplayName} (you)`
     : trimmedDisplayName;
 }

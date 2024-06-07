@@ -15,7 +15,10 @@ let participants = [];
 
 io.on("connection", (socket) => {
   socket.broadcast.emit("user-connected", socket.id);
-  participants.push(socket.id);
+  participants.push({
+    name: socket.id,
+    socketId: socket.id,
+  });
 
   socket.emit("user-connected", participants);
 

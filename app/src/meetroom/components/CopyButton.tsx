@@ -48,7 +48,7 @@ export const CopyButton = () => {
       onClick={onCopy}
     >
       <span>{displayText}</span>
-      <button style={{ position: "relative" }} onClick={onCopy}>
+      <div style={{ position: "relative" }} onClick={onCopy}>
         <CopyIcon
           style={{
             position: "absolute",
@@ -71,7 +71,7 @@ export const CopyButton = () => {
             transition: "stroke-dashoffset 300ms ease-in-out",
           }}
         />
-      </button>
+      </div>
     </button>
   );
 };

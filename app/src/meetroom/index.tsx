@@ -3,20 +3,15 @@ import { Footer } from "./components/Footer";
 import { Header } from "./components/Header";
 import { Sidebar } from "./components/Sidebar";
 import { UserTiles } from "./components/UserTiles";
-import { useMeetRoomState } from "../store/hooks";
 import { socket } from "../utils/socket";
-import { Message } from "../store/atoms";
 import { playNotification } from "../utils/helpers";
+import { useSidebarState } from "../hooks/useSidebarState";
+import { useCurrentUser } from "../hooks/useCurrentUser";
+import { Message, User } from "../store/state.types";
 
 export const MeetRoom = () => {
-  const {
-    currentUser,
-    setCurrentUser,
-    setUsers,
-    addUser,
-    removeUser,
-    addMessage,
-  } = useMeetRoomState();
+  const { setUsers, addUser, removeUser, addMessage } = useSidebarState();
+  const { currentUser, setCurrentUser } = useCurrentUser();
 
   useEffect(() => {
     socket.connect();
@@ -28,7 +23,8 @@ export const MeetRoom = () => {
 
   useEffect(() => {
     socket.on("connect", () => {
-      setCurrentUser(socket.id ?? "");
+      const socketId = socket.id ?? "";
+      setCurrentUser({ name: socketId, socketId });
     });
     return () => {
       socket.off("connect");
@@ -36,7 +32,7 @@ export const MeetRoom = () => {
   }, [setCurrentUser]);
 
   useEffect(() => {
-    socket.on("user-connected", (user: string) => {
+    socket.on("user-connected", (user: User) => {
       if (Array.isArray(user)) {
         setUsers(user);
       } else {
@@ -50,8 +46,8 @@ export const MeetRoom = () => {
   }, [setUsers, addUser]);
 
   useEffect(() => {
-    socket.on("user-disconnected", (user: string) => {
-      removeUser(user);
+    socket.on("user-disconnected", (userId: string) => {
+      removeUser(userId);
     });
 
     return () => {
@@ -71,8 +67,9 @@ export const MeetRoom = () => {
   }, [addMessage]);
 
   useEffect(() => {
+    if (!currentUser) return;
     socket.on("message-received", (messageObject: Omit<Message, "sender">) => {
-      addMessage({ ...messageObject, sender: currentUser });
+      addMessage({ ...messageObject, sender: currentUser.socketId });
     });
 
     return () => {
