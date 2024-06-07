@@ -29,7 +29,7 @@ export const CopyButton = () => {
     if (displayText === "Copy joining info") return;
     const textTimeout = setTimeout(() => {
       setDisplayText("Copy joining info");
-    }, 1600);
+    }, 1700);
 
     return () => {
       clearTimeout(textTimeout);
