@@ -7,9 +7,21 @@ import { EndCallIcon } from "../../icons/EndCallIcon";
 import { CopyButton } from "./CopyButton";
 import { useMeetRoomState } from "../../hooks/useMeetRoomState";
 import { useSidebarState } from "../../hooks/useSidebarState";
+import { MicOffIcon } from "../../icons/MicOffIcon";
+import { VideoOffIcon } from "../../icons/VideoOffIcon";
+import { VideoOnIcon } from "../../icons/VideoOnIcon";
+import { MicOnIcon } from "../../icons/MicOnIcon";
 
 export const Footer = () => {
-  const { displayStream, togglePresentation } = useMeetRoomState();
+  const {
+    audioEnabled,
+    videoEnabled,
+    toggleAudio,
+    toggleVideo,
+    displayStream,
+    togglePresentation,
+  } = useMeetRoomState();
+
   const { sidebarContent, setSidebarContent } = useSidebarState();
 
   const toggleSidebarContent = (incomingState: SidebarContentState) => {
@@ -41,24 +53,30 @@ export const Footer = () => {
         <CopyButton />
       </div>
       <div id="media-actions" className="meet-action-container">
-        {isPresenting ? (
-          <button
-            data-active
-            type="button"
-            className="meet-action"
-            onClick={togglePresentation}
-          >
-            <CancelPresentationIcon />
-          </button>
-        ) : (
-          <button
-            type="button"
-            className="meet-action"
-            onClick={togglePresentation}
-          >
-            <PresentToAllIcon />
-          </button>
-        )}
+        <button
+          type="button"
+          className="meet-action"
+          data-active={!audioEnabled}
+          onClick={toggleAudio}
+        >
+          {audioEnabled ? <MicOnIcon /> : <MicOffIcon />}
+        </button>
+        <button
+          type="button"
+          className="meet-action"
+          data-active={!videoEnabled}
+          onClick={toggleVideo}
+        >
+          {videoEnabled ? <VideoOnIcon /> : <VideoOffIcon />}
+        </button>
+        <button
+          type="button"
+          className="meet-action"
+          data-active={isPresenting}
+          onClick={togglePresentation}
+        >
+          {isPresenting ? <CancelPresentationIcon /> : <PresentToAllIcon />}
+        </button>
         <button type="button" className="meet-action" id="leave-call-btn">
           <EndCallIcon />
         </button>

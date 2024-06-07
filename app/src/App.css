@@ -12,27 +12,12 @@ main {
 }
 
 #presentation {
-  height: fit-content;
-  max-width: 60vw;
-  flex: 1;
-}
-
-#user-tiles {
+  width: fit-content;
+  max-height: 70vh;
   flex: 1;
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
-  gap: 12px;
-}
-
-.user-tile {
-  display: flex;
-  flex-direction: column;
-  width: calc((100% / var(--grid-size)) - 8px);
-  background-color: var(--dark-secondary-bg);
-  padding: 24px;
-  border-radius: 24px;
-  max-width: 720px;
+  align-items: center;
 }
 
 .sidebar {

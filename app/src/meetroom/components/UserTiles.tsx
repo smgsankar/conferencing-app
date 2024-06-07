@@ -3,18 +3,30 @@ import { useMeetRoomState } from "../../hooks/useMeetRoomState";
 
 export const UserTiles = () => {
   const ref = useRef<HTMLVideoElement>(null);
-  const { displayStream } = useMeetRoomState();
+  const { displayStream, userStream } = useMeetRoomState();
 
   useEffect(() => {
+    if (ref.current && userStream) {
+      ref.current.srcObject = userStream;
+      return;
+    }
     if (ref.current && displayStream) {
       ref.current.srcObject = displayStream;
     }
-  }, [displayStream]);
+  }, [userStream, displayStream]);
 
   return (
     <section id="presentation">
-      {!!displayStream && (
-        <video muted autoPlay ref={ref} style={{ width: "100%" }} />
+      {(displayStream !== null || userStream !== null) && (
+        <video
+          autoPlay
+          ref={ref}
+          style={{
+            height: "100%",
+            objectFit: "contain",
+            transform: userStream !== null ? "rotateY(180deg)" : undefined,
+          }}
+        />
       )}
     </section>
   );

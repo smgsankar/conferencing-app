@@ -1,6 +1,7 @@
 import { useRecoilState } from "recoil";
 import { meetRoomStateAtom } from "../store/atoms";
 import { toastError } from "../utils/helpers";
+import { useEffect } from "react";
 
 export const useMeetRoomState = () => {
   const [meetRoomState, setMeetRoomState] = useRecoilState(meetRoomStateAtom);
@@ -11,22 +12,22 @@ export const useMeetRoomState = () => {
   const toggleVideo = () => {
     if (userStream) {
       if (!audioEnabled && videoEnabled) {
-        userStream.getAudioTracks().forEach((track) => {
-          track.stop();
-        });
+        userStream.getAudioTracks().forEach((track) => track.stop());
+        userStream.getVideoTracks().forEach((track) => track.stop());
         setMeetRoomState((prevState) => ({
           ...prevState,
           userStream: null,
+          videoEnabled: false,
         }));
       } else {
         userStream.getVideoTracks().forEach((track) => {
           track.enabled = !videoEnabled;
         });
+        setMeetRoomState((prevState) => ({
+          ...prevState,
+          videoEnabled: !prevState.videoEnabled,
+        }));
       }
-      setMeetRoomState((prevState) => ({
-        ...prevState,
-        videoEnabled: !prevState.videoEnabled,
-      }));
     } else {
       navigator.mediaDevices
         .getUserMedia({ video: true, audio: audioEnabled })
@@ -34,7 +35,7 @@ export const useMeetRoomState = () => {
           setMeetRoomState((prevState) => ({
             ...prevState,
             userStream: stream,
-            videoEnabled: !prevState.videoEnabled,
+            videoEnabled: true,
           }));
         })
         .catch((error) => {
@@ -46,22 +47,22 @@ export const useMeetRoomState = () => {
   const toggleAudio = () => {
     if (userStream) {
       if (!videoEnabled && audioEnabled) {
-        userStream.getAudioTracks().forEach((track) => {
-          track.stop();
-        });
+        userStream.getAudioTracks().forEach((track) => track.stop());
+        userStream.getVideoTracks().forEach((track) => track.stop());
         setMeetRoomState((prevState) => ({
           ...prevState,
           userStream: null,
+          audioEnabled: false,
         }));
       } else {
         userStream.getAudioTracks().forEach((track) => {
           track.enabled = !audioEnabled;
         });
+        setMeetRoomState((prevState) => ({
+          ...prevState,
+          audioEnabled: !prevState.audioEnabled,
+        }));
       }
-      setMeetRoomState((prevState) => ({
-        ...prevState,
-        audioEnabled: !prevState.audioEnabled,
-      }));
     } else {
       navigator.mediaDevices
         .getUserMedia({ video: videoEnabled, audio: true })
@@ -69,7 +70,7 @@ export const useMeetRoomState = () => {
           setMeetRoomState((prevState) => ({
             ...prevState,
             userStream: stream,
-            audioEnabled: !prevState.audioEnabled,
+            audioEnabled: true,
           }));
         })
         .catch((error) => {
@@ -79,6 +80,9 @@ export const useMeetRoomState = () => {
   };
 
   const stopPresentation = () => {
+    if (displayStream) {
+      displayStream.getTracks().forEach((track) => track.stop());
+    }
     setMeetRoomState((prevState) => ({
       ...prevState,
       displayStream: null,
@@ -87,9 +91,6 @@ export const useMeetRoomState = () => {
 
   const togglePresentation = () => {
     if (displayStream) {
-      displayStream.getTracks().forEach((track) => {
-        track.stop();
-      });
       stopPresentation();
     } else {
       navigator.mediaDevices
@@ -110,6 +111,26 @@ export const useMeetRoomState = () => {
         });
     }
   };
+
+  useEffect(() => {
+    return () => {
+      if (userStream) {
+        userStream.getTracks().forEach((track) => {
+          track.stop();
+        });
+      }
+    };
+  }, [userStream]);
+
+  useEffect(() => {
+    return () => {
+      if (displayStream) {
+        displayStream.getTracks().forEach((track) => {
+          track.stop();
+        });
+      }
+    };
+  }, [displayStream]);
 
   return {
     ...meetRoomState,
