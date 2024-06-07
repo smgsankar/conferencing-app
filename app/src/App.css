@@ -13,7 +13,7 @@ main {
 
 #presentation {
   width: fit-content;
-  max-height: 70vh;
+  max-height: 70vmin;
   flex: 1;
   display: flex;
   justify-content: center;
