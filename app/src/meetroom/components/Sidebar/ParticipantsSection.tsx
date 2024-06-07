@@ -11,7 +11,7 @@ export const ParticipantsSection = () => {
       <div className="sidebar-list">
         {!users.length && <div className="no-data">No participants yet...</div>}
         {users.map((user) => (
-          <div className="participant" data-user-id={user}>
+          <div className="participant" data-user-id={user} key={user}>
             <div className="participant">
               <ParticipantIcon />
               <span>{getDisplayNameForUser(user, currentUser)}</span>

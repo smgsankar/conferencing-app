@@ -6,6 +6,8 @@ import { PresentToAllIcon } from "../../icons/PresetToAllIcon";
 import { meetRoomStateAtom } from "../../store/atoms";
 import { SidebarContentState } from "../../utils/constants";
 import { toastError } from "../../utils/helpers";
+import { EndCallIcon } from "../../icons/EndCallIcon";
+import { CopyButton } from "./CopyButton";
 
 export const Footer = () => {
   const [meetRoomState, setMeetRoomState] = useRecoilState(meetRoomStateAtom);
@@ -61,35 +63,46 @@ export const Footer = () => {
 
   return (
     <footer>
-      {isPresenting ? (
+      <div id="copy-meet-info" className="meet-action-container">
+        <CopyButton />
+      </div>
+      <div id="media-actions" className="meet-action-container">
+        {isPresenting ? (
+          <button
+            data-active
+            type="button"
+            className="meet-action"
+            onClick={stopPresentation}
+          >
+            <CancelPresentationIcon />
+          </button>
+        ) : (
+          <button type="button" className="meet-action" onClick={onPresent}>
+            <PresentToAllIcon />
+          </button>
+        )}
+        <button type="button" className="meet-action" id="leave-call-btn">
+          <EndCallIcon />
+        </button>
+      </div>
+      <div id="sidebar-actions" className="meet-action-container">
         <button
           type="button"
           className="meet-action"
-          onClick={stopPresentation}
+          onClick={onParticipantsClick}
+          data-active={isParticipantsActive}
         >
-          <CancelPresentationIcon />
+          <PeopleIcon />
         </button>
-      ) : (
-        <button type="button" className="meet-action" onClick={onPresent}>
-          <PresentToAllIcon />
+        <button
+          type="button"
+          className="meet-action"
+          onClick={onChatClick}
+          data-active={isChatActive}
+        >
+          <ChatBubbleIcon />
         </button>
-      )}
-      <button
-        type="button"
-        className="meet-action"
-        onClick={onParticipantsClick}
-        data-active={isParticipantsActive}
-      >
-        <PeopleIcon />
-      </button>
-      <button
-        type="button"
-        className="meet-action"
-        onClick={onChatClick}
-        data-active={isChatActive}
-      >
-        <ChatBubbleIcon />
-      </button>
+      </div>
     </footer>
   );
 };
