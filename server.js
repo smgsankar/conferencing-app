@@ -24,7 +24,7 @@ io.on("connection", (socket) => {
 
   socket.on("disconnect", () => {
     socket.broadcast.emit("user-disconnected", socket.id);
-    participants = participants.filter((id) => id !== socket.id);
+    participants = participants.filter((user) => user.socketId !== socket.id);
   });
 
   socket.on("message", (message) => {
