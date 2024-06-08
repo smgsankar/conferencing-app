@@ -31,7 +31,7 @@ export const MeetRoom = () => {
   }, [setCurrentUser]);
 
   useEffect(() => {
-    socket.on("user-connected", (user: User) => {
+    socket.on("user-connected", (user: User | User[]) => {
       if (Array.isArray(user)) {
         setUsers(user);
       } else {
