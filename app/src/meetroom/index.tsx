@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { Footer } from "./components/Footer";
-import { Header } from "./components/Header";
 import { Sidebar } from "./components/Sidebar";
 import { UserTiles } from "./components/UserTiles";
 import { socket } from "../utils/socket";
@@ -79,7 +78,6 @@ export const MeetRoom = () => {
 
   return (
     <>
-      <Header />
       <main>
         <UserTiles />
         <Sidebar />
