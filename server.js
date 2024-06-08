@@ -14,10 +14,14 @@ const io = new Server(server, {
 let participants = [];
 
 io.on("connection", (socket) => {
-  socket.broadcast.emit("user-connected", socket.id);
+  const socketId = socket.id;
+  socket.broadcast.emit("user-connected", {
+    name: socketId,
+    socketId: socketId,
+  });
   participants.push({
-    name: socket.id,
-    socketId: socket.id,
+    name: socketId,
+    socketId: socketId,
   });
 
   socket.emit("user-connected", participants);
