@@ -1,13 +1,12 @@
 main {
   display: flex;
   justify-content: space-evenly;
+  gap: 24px;
   width: calc(100vw - 64px);
   height: calc(100vh - 118px);
 }
 
 #presentation {
-  width: fit-content;
-  max-height: 70vmin;
   flex: 1;
   display: flex;
   justify-content: center;
@@ -17,7 +16,7 @@ main {
 .sidebar {
   display: flex;
   flex-direction: column;
-  width: max(360px, 20%);
+  width: max(300px, 20%);
   gap: 12px;
   background-color: var(--dark-secondary-bg);
   margin: 16px 0;
@@ -34,7 +33,7 @@ main {
 .sidebar-content {
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: 24px;
   height: 100%;
 }
 

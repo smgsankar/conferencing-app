@@ -22,6 +22,7 @@ export const UserTiles = () => {
           autoPlay
           ref={ref}
           style={{
+            width: "100%",
             height: "100%",
             objectFit: "contain",
             transform: userStream !== null ? "rotateY(180deg)" : undefined,
