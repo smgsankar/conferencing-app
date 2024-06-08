@@ -43,7 +43,7 @@ export const ChatSection = () => {
         )}
         {messages.map((message) => (
           <div key={`${message.sender}_${message.time}`} className="message">
-            <ParticipantIcon />
+            <ParticipantIcon size={36} />
             <div className="message-body">
               <div className="message-info">
                 <span className="sender-name">

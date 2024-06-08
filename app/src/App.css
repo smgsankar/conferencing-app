@@ -73,7 +73,7 @@ main {
 .message-info {
   display: flex;
   align-items: baseline;
-  gap: 12px;
+  gap: 6px;
 }
 
 .sender-name {
