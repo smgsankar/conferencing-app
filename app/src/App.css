@@ -16,7 +16,7 @@ main {
 .sidebar {
   display: flex;
   flex-direction: column;
-  width: max(320px, 20%);
+  width: clamp(300px, calc(300px + 10%), 360px);
   gap: 12px;
   background-color: var(--dark-secondary-bg);
   margin: 16px 0;
