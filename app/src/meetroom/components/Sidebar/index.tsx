@@ -2,6 +2,7 @@ import { useSidebarState } from "../../../hooks/useSidebarState";
 import { SidebarContentState } from "../../../utils/constants";
 import { ChatSection } from "./ChatSection";
 import { ParticipantsSection } from "./ParticipantsSection";
+import "./sidebar.css";
 
 export const Sidebar = () => {
   const { sidebarContent } = useSidebarState();

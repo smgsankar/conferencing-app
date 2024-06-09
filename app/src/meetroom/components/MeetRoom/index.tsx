@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
-import { useMeetRoomState } from "../../hooks/useMeetRoomState";
+import { useMeetRoomState } from "../../../hooks/useMeetRoomState";
+import "./meetroom.css";
 
 export const UserTiles = () => {
   const ref = useRef<HTMLVideoElement>(null);

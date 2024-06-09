@@ -6,6 +6,7 @@ import { SectionWithHeader } from "./SectionWithHeader";
 import { socket } from "../../../utils/socket";
 import { ParticipantIcon } from "../../../icons/ParticipantIcon";
 import { getFormattedTimestamp, trimDisplayName } from "../../../utils/helpers";
+import "./sidebar.css";
 
 export const ChatSection = () => {
   const inputRef = useRef<HTMLInputElement>(null);

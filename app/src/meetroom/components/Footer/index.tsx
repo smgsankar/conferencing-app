@@ -1,16 +1,16 @@
-import { CancelPresentationIcon } from "../../icons/CancelPresentationIcon";
-import { ChatBubbleIcon } from "../../icons/ChatBubbleIcon";
-import { PeopleIcon } from "../../icons/PeopleIcon";
-import { PresentToAllIcon } from "../../icons/PresetToAllIcon";
-import { SidebarContentState } from "../../utils/constants";
-import { EndCallIcon } from "../../icons/EndCallIcon";
+import { CancelPresentationIcon } from "../../../icons/CancelPresentationIcon";
+import { ChatBubbleIcon } from "../../../icons/ChatBubbleIcon";
+import { PeopleIcon } from "../../../icons/PeopleIcon";
+import { PresentToAllIcon } from "../../../icons/PresetToAllIcon";
+import { SidebarContentState } from "../../../utils/constants";
+import { EndCallIcon } from "../../../icons/EndCallIcon";
 import { CopyButton } from "./CopyButton";
-import { useMeetRoomState } from "../../hooks/useMeetRoomState";
-import { useSidebarState } from "../../hooks/useSidebarState";
-import { MicOffIcon } from "../../icons/MicOffIcon";
-import { VideoOffIcon } from "../../icons/VideoOffIcon";
-import { VideoOnIcon } from "../../icons/VideoOnIcon";
-import { MicOnIcon } from "../../icons/MicOnIcon";
+import { useMeetRoomState } from "../../../hooks/useMeetRoomState";
+import { useSidebarState } from "../../../hooks/useSidebarState";
+import { MicOffIcon } from "../../../icons/MicOffIcon";
+import { VideoOffIcon } from "../../../icons/VideoOffIcon";
+import { VideoOnIcon } from "../../../icons/VideoOnIcon";
+import { MicOnIcon } from "../../../icons/MicOnIcon";
 
 export const Footer = () => {
   const {

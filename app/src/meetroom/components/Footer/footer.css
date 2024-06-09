@@ -1,0 +1,70 @@
+footer {
+  display: flex;
+  position: relative;
+  justify-content: space-between;
+  height: 54px;
+  gap: 24px;
+}
+
+.meet-action-container {
+  display: flex;
+  gap: 20px;
+}
+
+#copy-meet-info {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+}
+
+#copy-meet-info-btn {
+  gap: 20px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  border-radius: 12px;
+  padding-right: 10px;
+}
+
+#sidebar-actions {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+
+#media-actions {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+
+.meet-action {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--accent-white);
+  background-color: var(--dark-secondary-bg);
+  border-radius: 50%;
+  height: 54px;
+  width: 54px;
+  cursor: pointer;
+}
+
+.meet-action:hover {
+  background-color: var(--dark-tertiary-bg);
+}
+
+.meet-action:active {
+  opacity: 0.9;
+}
+
+.meet-action[data-active="true"] {
+  background-color: var(--primary-theme-color);
+  color: var(--accent-black);
+}
+
+#leave-call-btn {
+  background-color: var(--accent-red);
+  color: var(--accent-black);
+}

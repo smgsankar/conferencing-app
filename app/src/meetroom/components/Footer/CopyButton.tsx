@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { CopyIcon } from "../../icons/CopyIcon";
-import { TickIcon } from "../../icons/TickIcon";
+import { CopyIcon } from "../../../icons/CopyIcon";
+import { TickIcon } from "../../../icons/TickIcon";
 
 export const CopyButton = () => {
   const [copied, setCopied] = useState(false);

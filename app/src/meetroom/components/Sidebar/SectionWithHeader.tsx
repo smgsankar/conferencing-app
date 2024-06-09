@@ -1,5 +1,6 @@
 import { PropsWithChildren } from "react";
 import { CloseButton } from "./CloseButton";
+import "./sidebar.css";
 
 type Props = PropsWithChildren<{
   title: string;

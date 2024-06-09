@@ -3,6 +3,7 @@ import { useSidebarState } from "../../../hooks/useSidebarState";
 import { ParticipantIcon } from "../../../icons/ParticipantIcon";
 import { getDisplayNameForUser } from "../../../utils/helpers";
 import { SectionWithHeader } from "./SectionWithHeader";
+import "./sidebar.css";
 
 export const ParticipantsSection = () => {
   const { users } = useSidebarState();

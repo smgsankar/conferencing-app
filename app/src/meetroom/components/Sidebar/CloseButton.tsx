@@ -1,6 +1,7 @@
 import { useSidebarState } from "../../../hooks/useSidebarState";
 import { CloseIcon } from "../../../icons/CloseIcon";
 import { SidebarContentState } from "../../../utils/constants";
+import "./sidebar.css";
 
 export const CloseButton = () => {
   const { setSidebarContent } = useSidebarState();
