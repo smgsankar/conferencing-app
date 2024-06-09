@@ -1,7 +1,10 @@
 import { RecoilRoot } from "recoil";
 import { MeetRoom } from "./meetroom";
-import "./App.css";
 import { Suspense } from "react";
+import "./meetroom/components/Sidebar/sidebar.css";
+import "./meetroom/components/MeetRoom/meetroom.css";
+import "./meetroom/components/Footer/footer.css";
+import "./App.css";
 
 function App() {
   return (
