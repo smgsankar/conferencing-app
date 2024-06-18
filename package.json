@@ -1,20 +1,18 @@
 {
   "name": "conferencing-app",
   "version": "1.0.0",
-  "description": "video conferencing application",
-  "main": "server.js",
-  "type": "module",
+  "description": "full stack repo for conferencing app",
+  "repository": "https://github.com/smgsankar/conferencing-app.git",
+  "author": "smgsankar <gomzsankar@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "app",
+    "server"
+  ],
   "scripts": {
-    "start": "concurrently \"nodemon server.js\" \"cd app && yarn dev\""
+    "start": "yarn workspace start",
+    "build": "yarn workspace build"
   },
-  "author": "smgsankar",
-  "license": "ISC",
-  "dependencies": {
-    "express": "^4.19.2",
-    "socket.io": "^4.7.5"
-    },
-    "devDependencies": {
-      "concurrently": "^8.2.2",
-      "nodemon": "^3.1.0"
-  }
+  "packageManager": "yarn@4.3.0"
 }
