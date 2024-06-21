@@ -10,9 +10,5 @@
     "app",
     "server"
   ],
-  "scripts": {
-    "start": "yarn workspace start",
-    "build": "yarn workspace build"
-  },
   "packageManager": "yarn@4.3.0"
 }
