@@ -9,74 +9,78 @@ export const useMeetRoomState = () => {
   const { userStream, displayStream, videoEnabled, audioEnabled } =
     meetRoomState;
 
-  const toggleVideo = () => {
-    if (userStream) {
-      if (!audioEnabled && videoEnabled) {
-        userStream.getAudioTracks().forEach((track) => track.stop());
-        userStream.getVideoTracks().forEach((track) => track.stop());
-        setMeetRoomState((prevState) => ({
-          ...prevState,
-          userStream: null,
-          videoEnabled: false,
-        }));
-      } else {
-        userStream.getVideoTracks().forEach((track) => {
-          track.enabled = !videoEnabled;
-        });
-        setMeetRoomState((prevState) => ({
-          ...prevState,
-          videoEnabled: !prevState.videoEnabled,
-        }));
-      }
-    } else {
+  const updateStream = (newVideoEnabled: boolean, newAudioEnabled: boolean) => {
+    if (!newAudioEnabled && !newVideoEnabled && userStream) {
+      userStream.getTracks().forEach((track) => track.stop());
+      setMeetRoomState((prevState) => ({
+        ...prevState,
+        userStream: null,
+        videoEnabled: newVideoEnabled,
+        audioEnabled: newAudioEnabled,
+      }));
+      return;
+    }
+    if (!userStream) {
       navigator.mediaDevices
-        .getUserMedia({ video: true, audio: audioEnabled })
+        .getUserMedia({ video: newVideoEnabled, audio: newAudioEnabled })
         .then((stream) => {
           setMeetRoomState((prevState) => ({
             ...prevState,
             userStream: stream,
-            videoEnabled: true,
+            videoEnabled: newVideoEnabled,
+            audioEnabled: newAudioEnabled,
           }));
         })
         .catch((error) => {
           toastError(error);
         });
+    } else {
+      if (audioEnabled && !newAudioEnabled) {
+        userStream.getAudioTracks().forEach((track) => {
+          userStream.removeTrack(track);
+          track.stop();
+        });
+      }
+      if (videoEnabled && !newVideoEnabled) {
+        userStream.getVideoTracks().forEach((track) => {
+          userStream.removeTrack(track);
+          track.stop();
+        });
+      }
+      if (!audioEnabled && newAudioEnabled) {
+        navigator.mediaDevices
+          .getUserMedia({ audio: true })
+          .then((stream) => {
+            stream.getTracks().forEach((track) => userStream.addTrack(track));
+          })
+          .catch((error) => {
+            toastError(error);
+          });
+      }
+      if (!videoEnabled && newVideoEnabled) {
+        navigator.mediaDevices
+          .getUserMedia({ video: true })
+          .then((stream) => {
+            stream.getTracks().forEach((track) => userStream.addTrack(track));
+          })
+          .catch((error) => {
+            toastError(error);
+          });
+      }
+      setMeetRoomState((prevState) => ({
+        ...prevState,
+        videoEnabled: newVideoEnabled,
+        audioEnabled: newAudioEnabled,
+      }));
     }
   };
 
+  const toggleVideo = () => {
+    updateStream(!videoEnabled, audioEnabled);
+  };
+
   const toggleAudio = () => {
-    if (userStream) {
-      if (!videoEnabled && audioEnabled) {
-        userStream.getAudioTracks().forEach((track) => track.stop());
-        userStream.getVideoTracks().forEach((track) => track.stop());
-        setMeetRoomState((prevState) => ({
-          ...prevState,
-          userStream: null,
-          audioEnabled: false,
-        }));
-      } else {
-        userStream.getAudioTracks().forEach((track) => {
-          track.enabled = !audioEnabled;
-        });
-        setMeetRoomState((prevState) => ({
-          ...prevState,
-          audioEnabled: !prevState.audioEnabled,
-        }));
-      }
-    } else {
-      navigator.mediaDevices
-        .getUserMedia({ video: videoEnabled, audio: true })
-        .then((stream) => {
-          setMeetRoomState((prevState) => ({
-            ...prevState,
-            userStream: stream,
-            audioEnabled: true,
-          }));
-        })
-        .catch((error) => {
-          toastError(error);
-        });
-    }
+    updateStream(videoEnabled, !audioEnabled);
   };
 
   const stopPresentation = () => {
