@@ -17,10 +17,13 @@ export type SidebarState = {
   sidebarContent: SidebarContentState;
 };
 
+export type Stream = MediaStream | null;
+
 export type MeetRoomState = {
   videoEnabled: boolean;
   audioEnabled: boolean;
-  userStream: MediaStream | null;
-  displayStream: MediaStream | null;
+  userStream: Stream;
+  displayStream: Stream;
   displayAudioEnabled: boolean;
+  remoteStreams: Stream[];
 };
