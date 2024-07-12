@@ -10,5 +10,8 @@
     "app",
     "server"
   ],
+  "scripts": {
+    "start": "yarn workspaces foreach --all -p run start"
+  },
   "packageManager": "yarn@4.3.0"
 }
