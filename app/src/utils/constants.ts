@@ -3,3 +3,9 @@ export enum SidebarContentState {
   Chat,
   Participants,
 }
+
+export enum StreamTypes {
+  None,
+  Video,
+  Audio,
+}

@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Footer } from "./components/Footer";
 import { Sidebar } from "./components/Sidebar";
-import { UserTiles } from "./components/MeetRoom";
+import { UserTiles } from "./components/UserTiles";
 import { socket } from "../utils/socket";
 import { playNotification } from "../utils/helpers";
 import { useSidebarState } from "../hooks/useSidebarState";

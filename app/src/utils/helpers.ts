@@ -1,4 +1,5 @@
-import { User } from "../store/state.types";
+import { Stream, User } from "../store/state.types";
+import { StreamTypes } from "./constants";
 
 export function toast(message: string) {
   const toast = document.querySelector(".toast")!;
@@ -38,4 +39,20 @@ export function getFormattedTimestamp(time: string) {
     hourCycle: "h24",
     timeStyle: "short",
   });
+}
+
+export function hasVideoTrack(stream: Stream) {
+  return Boolean(stream?.getVideoTracks()?.length);
+}
+
+export function hasOnlyAudioTrack(stream: Stream) {
+  return (
+    stream && !hasVideoTrack(stream) && Boolean(stream.getAudioTracks()?.length)
+  );
+}
+
+export function getStreamType(stream: Stream) {
+  if (hasVideoTrack(stream)) return StreamTypes.Video;
+  if (hasOnlyAudioTrack(stream)) return StreamTypes.Audio;
+  return StreamTypes.None;
 }
